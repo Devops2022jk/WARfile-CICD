@@ -1,9 +1,23 @@
 pipeline{
-    agent {label 'Agent1'}
+    agent{label "node1"}
+    environment{
+        PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+    }
     stages{
-        stage('Git Checkout'){
+        stage("Git-Checkout"){
             steps{
-                git credentialsId: 'key', url: 'https://github.com/Devops2022jk/ass3_june.git'
+                 git credentialsId: 'demo-devops', url: 'https://github.com/Devops2022jk/WARfile-CICD.git'
+            }
+        }
+        stage("maven-build"){
+            steps{
+                 sh "mvn clean package"
+            }
+        }
+        stage("deployment"){
+            steps{
+                 sh "mv target/*war target/kubenslearn.war"
+                 sh "sudo cp -p target/kubenslearn.war /opt/tomcat/webapps"
             }
         }
     }
