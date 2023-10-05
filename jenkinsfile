@@ -9,9 +9,19 @@ pipeline{
                  git credentialsId: 'demo-devops', url: 'https://github.com/Devops2022jk/WARfile-CICD.git'
             }
         }
+        stage("Maven-Install"){
+            steps{
+                 ansiblePlaybook credentialsId: 'ubuntu-ansible', disableHostKeyChecking: true, installation: 'Ansible-master', inventory: 'ansible.inv', playbook: 'maveninstall.yml'
+            }
+        }
         stage("maven-build"){
             steps{
                  sh "mvn clean package"
+            }
+        }
+        stage("Tomcat-install"){
+            steps{
+                 ansiblePlaybook credentialsId: 'ubuntu-ansible', disableHostKeyChecking: true, installation: 'Ansible-master', inventory: 'ansible.inv', playbook: 'tomcatinstall.yml'
             }
         }
         stage("deployment"){
