@@ -1,7 +1,7 @@
 ---
  - hosts: tomcat
    become: true
-   name: install tomcat with ansible via jenkins
+   name: install maven with ansible via jenkins
    tasks:
     - name: install java
       apt: name=default-jdk state=latest
