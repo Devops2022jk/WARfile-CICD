@@ -22,7 +22,7 @@
       file: path=/opt/tomcat owner=tomcat group=tomcat mode=755 recurse=yes state=directory
 
     - name: Creating tomcat.service file
-      copy: src="/home/ubuntu/ansible/tomcat.service" dest="/etc/systemd/system/tomcat.service"
+      copy: src="tomcat.service" dest="/etc/systemd/system/tomcat.service"
 
     - name: tomcat service start
       service: name=tomcat state=started daemon_reload=yes
